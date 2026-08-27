@@ -1,0 +1,577 @@
+<!DOCTYPE html>
+<html lang="uk">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Горгани — Content Toolbox</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link
+    href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap"
+    rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+  <header>
+    <div class="logo">
+      <div class="logo-icon">
+        <svg viewBox="0 0 16 16">
+          <path d="M8 1L2 5v8h4v-4h4v4h4V5L8 1z" />
+        </svg>
+      </div>
+      Content Toolbox
+      <span class="header-sub"> — Горгани</span>
+    </div>
+    <nav class="tabs">
+      <button class="tab-btn active" data-tab="rich" onclick="switchTab('rich')">Річ-контент</button>
+      <button class="tab-btn" data-tab="faq" onclick="switchTab('faq')">FAQ</button>
+      <button class="tab-btn" data-tab="photo" onclick="switchTab('photo')">Фото</button>
+      <button class="tab-btn" data-tab="gradient" onclick="switchTab('gradient')">Градієнт</button>
+    </nav>
+    <div class="spacer"></div>
+    <span class="header-badge">Gorgany CMS</span>
+  </header>
+
+  <div class="container">
+    <div class="builder" id="richPanel">
+
+      <div class="section-card" id="sec1">
+        <div class="section-head" onclick="toggleSection('sec1')">
+          <div class="section-num">1</div>
+          <span class="section-name">Три зображення</span>
+          <span class="section-desc">з заголовком і підписом</span>
+          <span class="section-chevron">›</span>
+        </div>
+        <div class="section-body">
+          <div class="tip"><b>Формат:</b> квадратні зображення · <b>Суфікси:</b> _left · _middle · _right ·
+            <b>?format=webp</b> додається автоматично</div>
+          <div class="grid-2-narrow">
+            <div class="field">
+              <label>Папка з фото в S3 <span class="req">*</span></label>
+              <input type="text" id="sharedFolder" placeholder="назва-папки">
+            </div>
+            <div class="field">
+              <label>Назва фото <span class="req">*</span></label>
+              <input type="text" id="sharedName" placeholder="назва-фото">
+            </div>
+          </div>
+          <div class="toggle-row">
+            <label class="toggle-label">
+              <input type="checkbox" id="gradientToggle">
+              <span>Чи є градієнт на фото?</span>
+            </label>
+          </div>
+          <div class="grid-3" id="imgCols"></div>
+        </div>
+      </div>
+
+      <div class="section-card" id="sec2">
+        <div class="section-head" onclick="toggleSection('sec2')">
+          <div class="section-num">2</div>
+          <span class="section-name">Одне велике зображення</span>
+          <span class="section-chevron">›</span>
+        </div>
+        <div class="section-body">
+          <div class="tip"><b>Формат:</b> 1200px х 500px · <b>URL</b> генерується з папки і назви секції 1 з суфіксом
+            <b>_long</b> · градієнту немає</div>
+          <div class="field">
+            <label>Alt-текст <span class="req">*</span></label>
+            <input type="text" id="s2alt" value="Fourth photo" placeholder="Опис зображення для SEO">
+          </div>
+        </div>
+      </div>
+
+      <div class="section-card" id="sec3">
+        <div class="section-head" onclick="toggleSection('sec3')">
+          <div class="section-num">3</div>
+          <span class="section-name">Опис і характеристики</span>
+          <span class="section-desc">опис · ключові параметри · характеристики</span>
+          <span class="section-chevron">›</span>
+        </div>
+        <div class="section-body">
+          <div class="grid-2">
+
+            <div class="col-form">
+              <div class="sub-title">Ліва колонка — Опис</div>
+
+              <div class="field">
+                <label>Заголовок H3 <span class="req">*</span></label>
+                <input type="text" id="s3h3" placeholder="Назва товару / модель">
+              </div>
+
+              <div class="field">
+                <div class="field-row">
+                  <label>Короткий текст <span class="hint">(до кнопки «Читати більше»)</span> <span
+                      class="req">*</span></label>
+                  <span class="char-count" id="s3shortc">0</span>
+                </div>
+                <textarea id="s3short" rows="4" placeholder="Короткий опис товару..."
+                  oninput="cc(this,'s3shortc',600)"></textarea>
+              </div>
+
+              <div class="field">
+                <div class="field-row">
+                  <label>Повний текст <span class="hint">(після розкриття)</span></label>
+                  <span class="char-count" id="s3longc">0</span>
+                </div>
+                <textarea id="s3long" rows="5" placeholder="Повний розгорнутий опис..."
+                  oninput="cc(this,'s3longc',9999)"></textarea>
+              </div>
+
+              <div class="sub-title-row">
+                <span class="sub-title">Ключові параметри</span>
+                <label class="toggle-label">
+                  <input type="checkbox" id="threeValuesToggle" checked>
+                  <span>Включити в HTML</span>
+                </label>
+              </div>
+
+              <div class="field">
+                <label>Заголовок блоку</label>
+                <input type="text" id="tv_title" value="Температурний режим">
+              </div>
+
+              <div class="three-values-grid">
+                <div class="val-block">
+                  <label>Назва 1</label>
+                  <input type="text" id="tv1n" placeholder="t° max:">
+                  <label>Значення 1</label>
+                  <input type="text" id="tv1v" placeholder="24 °C">
+                </div>
+                <div class="val-block">
+                  <label>Назва 2</label>
+                  <input type="text" id="tv2n" placeholder="t° comf:">
+                  <label>Значення 2</label>
+                  <input type="text" id="tv2v" placeholder="8 °C">
+                </div>
+                <div class="val-block">
+                  <label>Назва 3</label>
+                  <input type="text" id="tv3n" placeholder="extreme:">
+                  <label>Значення 3</label>
+                  <input type="text" id="tv3v" placeholder="-10 °C">
+                </div>
+              </div>
+            </div>
+
+            <div class="col-form">
+              <div class="sub-title">Права колонка — Характеристики</div>
+
+              <div class="field">
+                <label>Заголовок «Призначення»</label>
+                <input type="text" id="purposeTitle" value="Призначення">
+              </div>
+              <div class="field">
+                <label>Текст «Призначення»</label>
+                <textarea id="purposeText" rows="3" placeholder="Опис призначення товару"></textarea>
+              </div>
+
+              <div class="field">
+                <label>Заголовок «Особливості»</label>
+                <input type="text" id="featTitle" value="Особливості">
+              </div>
+              <div class="field">
+                <label>Текст «Особливості»</label>
+                <textarea id="featText" rows="3" placeholder="Опис особливостей товару"></textarea>
+              </div>
+
+              <div class="field">
+                <label>Заголовок «Технічні характеристики»</label>
+                <input type="text" id="techTitle" value="Технічні характеристики">
+              </div>
+              <div class="field">
+                <label>Текст під заголовком <span class="hint">(необов'язково)</span></label>
+                <textarea id="techText" rows="2"
+                  placeholder="Таблиця характеристик підтягнеться автоматично"></textarea>
+              </div>
+
+              <div class="toggle-row">
+                <label class="toggle-label">
+                  <input type="checkbox" id="madeInUkraineToggle" checked>
+                  <span>Показувати «Зроблено з любов'ю в Україні»</span>
+                </label>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </div>
+
+      <div class="history-section" id="historySection" style="display:none">
+        <div class="history-head">
+          <span class="history-title">Останні генерації</span>
+          <button class="copy-btn" onclick="clearHistory()">Очистити</button>
+        </div>
+        <div id="historyList"></div>
+      </div>
+
+      <div class="output-section" id="outputSection">
+        <div class="output-head" onclick="toggleOutput()">
+          <span class="output-title">Готовий HTML</span>
+          <div class="spacer"></div>
+          <span class="status-msg" id="statusMsg"></span>
+          <button class="copy-btn" id="copybtn" onclick="event.stopPropagation(); doCopy()">Копіювати</button>
+          <button class="gen-btn" onclick="event.stopPropagation(); generate()">Згенерувати →</button>
+          <span class="output-chevron">›</span>
+        </div>
+        <pre class="output-pre output-empty" id="output">Заповни поля і натисни «Згенерувати →»</pre>
+      </div>
+
+    </div>
+
+    <div class="builder" id="faqPanel" style="display:none">
+
+      <div class="section-card" id="fsec1">
+        <div class="section-head" onclick="toggleSection('fsec1')">
+          <div class="section-num">1</div>
+          <span class="section-name">Сторінка</span>
+          <span class="section-desc">назва та ідентифікатори блоків</span>
+          <span class="section-chevron">›</span>
+        </div>
+        <div class="section-body">
+          <div class="tip"><b>Правило:</b> два CMS-блоки з однаковою назвою — закінчення <b>-faq-html</b> і
+            <b>-faq-json</b> · транслітерація автоматична · створюються в Content → Elements → Blocks</div>
+          <div class="field">
+            <label>Назва категорії / бренду / сторінки <span class="req">*</span></label>
+            <input type="text" id="faqName" placeholder="напр., жіночі куртки або boots" oninput="faqNameInput()">
+          </div>
+          <div class="id-chips">
+            <div class="id-chip">
+              <code id="faqIdHtml">…-faq-html</code>
+              <button class="copy-btn copy-btn-sm" id="faqIdHtmlBtn" onclick="copyFaqId('html')">Копіювати</button>
+            </div>
+            <div class="id-chip">
+              <code id="faqIdJson">…-faq-json</code>
+              <button class="copy-btn copy-btn-sm" id="faqIdJsonBtn" onclick="copyFaqId('json')">Копіювати</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="section-card" id="fsec2">
+        <div class="section-head" onclick="toggleSection('fsec2')">
+          <div class="section-num">2</div>
+          <span class="section-name">Питання та відповіді</span>
+          <span class="section-desc" id="faqCountDesc">0 питань у коді</span>
+          <span class="section-chevron">›</span>
+        </div>
+        <div class="section-body">
+          <div class="tip"><b>Тексти</b> в HTML і JSON-LD генеруються з одних полів — збіг «до символу» гарантований ·
+            новий рядок у відповіді = окремий абзац &lt;p&gt;</div>
+          <div class="faq-actions">
+            <button class="copy-btn" onclick="toggleFaqImport()">Імпорт списком</button>
+            <button class="gen-btn gen-btn-sm" onclick="faqAdd()">+ Додати питання</button>
+          </div>
+          <div class="import-panel" id="faqImportPanel" style="display:none">
+            <div class="import-hint">Перший рядок — питання, наступні — відповідь. Пари розділяй порожнім рядком.</div>
+            <textarea id="faqImportText" rows="6"
+              placeholder="Як обрати рюкзак?&#10;Оберіть рюкзак залежно від тривалості походу...&#10;&#10;Який обʼєм потрібен?&#10;Для одноденних походів достатньо 20–30 літрів."></textarea>
+            <div class="faq-actions">
+              <button class="gen-btn gen-btn-sm" onclick="faqImport('append')">Додати до списку</button>
+              <button class="copy-btn" onclick="faqImport('replace')">Замінити список</button>
+            </div>
+          </div>
+          <div id="faqList"></div>
+        </div>
+      </div>
+
+      <div class="history-section" id="faqHistorySection" style="display:none">
+        <div class="history-head">
+          <span class="history-title">Останні генерації</span>
+          <button class="copy-btn" onclick="clearFaqHistory()">Очистити</button>
+        </div>
+        <div id="faqHistoryList"></div>
+      </div>
+
+      <div class="output-section" id="faqOutputSection">
+        <div class="output-head" onclick="toggleFaqOutput()">
+          <span class="output-title">Готові блоки</span>
+          <div class="spacer"></div>
+          <span class="status-msg" id="faqStatusMsg"></span>
+          <button class="gen-btn" onclick="event.stopPropagation(); faqGenerate()">Згенерувати →</button>
+          <span class="output-chevron">›</span>
+        </div>
+        <div class="faq-outputs">
+          <div class="faq-output-block">
+            <div class="faq-output-label">
+              <code class="faq-output-id" id="faqOutIdHtml">…-faq-html</code>
+              <button class="copy-btn copy-btn-sm" id="faqCopyHtmlBtn" onclick="copyFaqCode('html')">Копіювати</button>
+            </div>
+            <pre class="output-pre output-empty" id="faqOutputHtml">Заповни поля і натисни «Згенерувати →»</pre>
+          </div>
+          <div class="faq-output-block">
+            <div class="faq-output-label">
+              <code class="faq-output-id" id="faqOutIdJson">…-faq-json</code>
+              <button class="copy-btn copy-btn-sm" id="faqCopyJsonBtn" onclick="copyFaqCode('json')">Копіювати</button>
+            </div>
+            <pre class="output-pre output-empty" id="faqOutputJson">HTML-блок і JSON-LD зʼявляться разом</pre>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="builder" id="photoPanel" style="display:none">
+
+      <div class="panel-bar">
+        <button class="link-btn" id="pRestartTop" hidden>← Новий архів</button>
+      </div>
+
+      <div id="pScreenUpload">
+        <div class="section-card" id="psec1">
+          <div class="section-head" onclick="toggleSection('psec1')">
+            <div class="section-num">1</div>
+            <span class="section-name">Архів із фото</span>
+            <span class="section-desc">папка = товар</span>
+            <span class="section-chevron">›</span>
+          </div>
+          <div class="section-body">
+            <div class="tip"><b>Структура:</b> ZIP, де кожна папка — окремий товар (назва папки = назва товару) · фото
+              <b>1, 2, 3</b> → квадрати · фото <b>4</b> → банер · далі кожен товар іде на погодження, а наприкінці
+              збирається архів погоджених</div>
+            <label class="drop" id="pDrop">
+              <input id="pFile" type="file" accept=".zip,application/zip,application/x-zip-compressed" hidden>
+              <div class="drop-in">
+                <div class="drop-ic">⤓</div>
+                <div class="drop-t">Перетягни ZIP сюди або натисни, щоб обрати</div>
+                <div id="pFileName" class="drop-f"></div>
+              </div>
+            </label>
+            <div class="row-go">
+              <button id="pProcess" class="gen-btn" disabled>Обробити</button>
+              <span id="pMsg" class="msg"></span>
+            </div>
+          </div>
+        </div>
+
+        <div class="section-card collapsed" id="psec2">
+          <div class="section-head" onclick="toggleSection('psec2')">
+            <div class="section-num">2</div>
+            <span class="section-name">Налаштування обробки</span>
+            <span class="section-desc">розміри · якість · градієнт</span>
+            <span class="section-chevron">›</span>
+          </div>
+          <div class="section-body">
+            <div class="cfg-grid">
+              <div class="field">
+                <label>Квадрат, px</label>
+                <input id="pCfgSq" type="number" value="800" min="1">
+              </div>
+              <div class="field">
+                <label>Банер ширина, px</label>
+                <input id="pCfgBw" type="number" value="1600" min="1">
+              </div>
+              <div class="field">
+                <label>Банер висота, px</label>
+                <input id="pCfgBh" type="number" value="800" min="1">
+              </div>
+              <div class="field">
+                <label>Якість JPG, %</label>
+                <input id="pCfgQ" type="number" value="92" min="1" max="100">
+              </div>
+              <div class="field wide">
+                <label>Суфікси за номером фото (1, 2, 3, 4)</label>
+                <input id="pCfgSuffixes" type="text" value="left, middle, right, long">
+              </div>
+            </div>
+            <div class="sub-title">Градієнт на квадратах</div>
+            <div class="cfg-row">
+              <label class="toggle-label">
+                <input type="checkbox" id="pGradOn" checked>
+                <span>Накладати градієнт</span>
+              </label>
+              <div class="field narrow">
+                <label>Старт %</label>
+                <input id="pGradStart" type="number" value="75" min="0" max="100">
+              </div>
+              <div class="field narrow">
+                <label>Непрозорість %</label>
+                <input id="pGradOp" type="number" value="80" min="0" max="100">
+              </div>
+              <div class="field narrow">
+                <label>Колір</label>
+                <input id="pGradColor" type="color" value="#000000">
+              </div>
+            </div>
+            <div class="tip"><code>{slug}</code> = латинська частина назви папки (кирилиця відкидається), малими
+              літерами, пробіли → «_» · назва файлу = <code>{slug}_суфікс</code> · градієнт лягає лише на квадрати,
+              банер лишається без затемнення</div>
+          </div>
+        </div>
+
+        <div class="section-card collapsed" id="psec3">
+          <div class="section-head" onclick="toggleSection('psec3')">
+            <div class="section-num">3</div>
+            <span class="section-name">Лог у Google Sheets</span>
+            <span class="section-desc" id="pLogPending">черга порожня</span>
+            <span class="section-chevron">›</span>
+          </div>
+          <div class="section-body">
+            <div class="tip"><b>Рядок на товар:</b> дата · час · партія · товар · слуг · статус · к-сть фото ·
+              товарів у партії · лог іде в таблицю після завантаження архіву · <b>адреса</b> зберігається лише в
+              цьому браузері й у код не потрапляє</div>
+            <div class="field">
+              <label>Адреса веб-застосунку Apps Script</label>
+              <div class="url-row">
+                <input type="text" id="pLogUrl" placeholder="https://script.google.com/macros/s/…/exec">
+                <button class="copy-btn" id="pLogTest">Перевірити</button>
+              </div>
+              <span class="msg" id="pLogTestMsg"></span>
+            </div>
+            <div class="sub-title">Останні партії</div>
+            <div class="log-list" id="pLogList"></div>
+            <div class="faq-actions">
+              <button class="copy-btn" id="pLogRetry" disabled>Надіслати те, що в черзі</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div id="pScreenReview" style="display:none">
+        <div class="section-card">
+          <div class="section-head static">
+            <div class="rev-head-l">
+              <div class="qname" id="pName"></div>
+              <div class="qslug" id="pSlug"></div>
+            </div>
+            <div class="rev-head-r">
+              <span class="warn-pill" id="pWarn" hidden></span>
+              <span class="statuspill" id="pStatus" hidden></span>
+              <span class="prog" id="pProg"></span>
+            </div>
+          </div>
+          <div class="section-body">
+            <div class="tip">Клікни по фото, щоб перемістити центр кадру · роль змінюється кнопкою під фото</div>
+            <div id="pGrid" class="p-grid"></div>
+            <div class="rev-foot">
+              <button id="pPrev" class="copy-btn">← Попередній</button>
+              <div class="decide">
+                <button id="pReject" class="btn-no">✕ Відхилити</button>
+                <button id="pApprove" class="btn-ok">✓ Погодити</button>
+              </div>
+              <button id="pNext" class="copy-btn">Наступний →</button>
+            </div>
+            <div class="rev-foot2">
+              <span class="keys">← → навігація · A погодити · R відхилити</span>
+              <button id="pToSummary" class="link-btn">До підсумку →</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div id="pScreenSummary" style="display:none">
+        <div class="section-card">
+          <div class="section-head static">
+            <span class="section-name">Підсумок</span>
+          </div>
+          <div class="section-body">
+            <div class="stats">
+              <div class="stat ok">
+                <div id="pStOk" class="stat-n">0</div>
+                <div class="stat-l">Погоджено</div>
+              </div>
+              <div class="stat no">
+                <div id="pStNo" class="stat-n">0</div>
+                <div class="stat-l">Відхилено</div>
+              </div>
+              <div class="stat pe">
+                <div id="pStPend" class="stat-n">0</div>
+                <div class="stat-l">Без рішення</div>
+              </div>
+            </div>
+            <div id="pPendNote" class="note-warn" hidden></div>
+            <div class="row-go">
+              <button id="pDownload" class="gen-btn gen-btn-lg">⤓ Завантажити архів</button>
+              <span id="pLogMsg" class="msg"></span>
+            </div>
+
+            <div id="pRejBlock" class="rej-block" hidden>
+              <div class="sub-title">Непогоджені папки (<span id="pRejCount">0</span>)</div>
+              <textarea id="pRejList" class="rej-list" readonly rows="5"></textarea>
+              <div class="faq-actions">
+                <button id="pCopyRej" class="copy-btn">Копіювати список</button>
+                <button id="pDlRej" class="copy-btn">Завантажити .txt</button>
+                <span id="pCopyMsg" class="msg"></span>
+              </div>
+            </div>
+            <div id="pAllOk" class="note-ok" hidden>Усі товари погоджено.</div>
+
+            <div class="faq-actions">
+              <button id="pBackReview" class="copy-btn">← До перегляду</button>
+              <button id="pRestart" class="copy-btn">Почати спочатку</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="builder" id="gradientPanel" style="display:none">
+
+      <div class="section-card" id="gsec1">
+        <div class="section-head" onclick="toggleSection('gsec1')">
+          <div class="section-num">1</div>
+          <span class="section-name">Градієнт-оверлей</span>
+          <span class="section-desc">затемнення знизу для тексту на банерах</span>
+          <span class="section-chevron">›</span>
+        </div>
+        <div class="section-body">
+          <div class="tip"><b>Формати:</b> JPG, PNG · кілька файлів одразу · завантажується одне фото або всі як
+            ZIP · <b>суфікс</b> _gradient додається до назви</div>
+          <div class="grad-layout">
+            <div class="grad-panel">
+              <div class="drop" id="gDrop">
+                <input type="file" id="gFile" accept="image/*" multiple hidden>
+                <div class="drop-in">
+                  <div class="drop-ic">↑</div>
+                  <div class="drop-t">Клікни або перетягни</div>
+                  <div class="drop-s">JPG, PNG — кілька файлів одразу</div>
+                </div>
+              </div>
+              <div class="range-row">
+                <label>Початок градієнту <span id="gStartVal">75%</span></label>
+                <input type="range" id="gStart" min="20" max="90" value="75">
+              </div>
+              <div class="range-row">
+                <label>Непрозорість <span id="gOpacityVal">80%</span></label>
+                <input type="range" id="gOpacity" min="10" max="100" value="80">
+              </div>
+              <div class="field">
+                <label>Колір градієнту</label>
+                <div class="color-row">
+                  <input type="color" id="gColor" value="#000000">
+                  <span class="color-note">за замовчуванням чорний</span>
+                </div>
+              </div>
+              <button class="gen-btn btn-block" id="gDownload" hidden>↓ Завантажити це фото</button>
+              <button class="copy-btn btn-block" id="gAll" hidden>↓ Завантажити всі як ZIP</button>
+            </div>
+            <div class="preview-area">
+              <div class="thumbs" id="gThumbs"></div>
+              <div class="canvas-wrap" id="gCanvasWrap">
+                <span class="empty-hint" id="gHint">Завантаж фото щоб побачити результат</span>
+                <canvas id="gCanvas" style="display:none"></canvas>
+              </div>
+              <div class="file-count" id="gCount"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <footer>
+    Content Toolbox · Горгани · Річ-контент, FAQ і підготовка фото · усе працює локально в браузері
+  </footer>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+  <script src="script.js"></script>
+  <script src="faq.js"></script>
+  <script src="log.js"></script>
+  <script src="photo.js"></script>
+  <script src="gradient.js"></script>
+</body>
+
+</html>

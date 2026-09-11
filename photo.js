@@ -350,7 +350,9 @@
         m => { btn.textContent = "Готую архів… " + Math.round(m.percent) + "%"; });
       download(out, "rich-content.zip");
       btn.textContent = label;
-      if (typeof pushBatchLog === "function") pushBatchLog(batchPayload());
+      const payload = batchPayload();
+      if (typeof saveS3Folders === "function") saveS3Folders(payload);
+      if (typeof pushBatchLog === "function") pushBatchLog(payload);
     } catch (e) {
       btn.textContent = "Помилка — спробуй ще раз";
       console.error(e);

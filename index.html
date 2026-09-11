@@ -47,15 +47,10 @@
         <div class="section-body">
           <div class="tip"><b>Формат:</b> квадратні зображення · <b>Суфікси:</b> _left · _middle · _right ·
             <b>?format=webp</b> додається автоматично</div>
-          <div class="grid-2-narrow">
-            <div class="field">
-              <label>Папка з фото в S3 <span class="req">*</span></label>
-              <input type="text" id="sharedFolder" placeholder="назва-папки">
-            </div>
-            <div class="field">
-              <label>Назва фото <span class="req">*</span></label>
-              <input type="text" id="sharedName" placeholder="назва-фото">
-            </div>
+          <div class="field">
+            <label>Папка з фото в S3 <span class="req">*</span> <span class="hint">погоджені товари з вкладки
+                «Фото» · назва фото = назва папки</span></label>
+            <select id="s3Folder" class="slug-select" required></select>
           </div>
           <div class="toggle-row">
             <label class="toggle-label">
@@ -74,7 +69,7 @@
           <span class="section-chevron">›</span>
         </div>
         <div class="section-body">
-          <div class="tip"><b>Формат:</b> 1200px х 500px · <b>URL</b> генерується з папки і назви секції 1 з суфіксом
+          <div class="tip"><b>Формат:</b> 1200px х 500px · <b>URL</b> генерується з папки секції 1 з суфіксом
             <b>_long</b> · градієнту немає</div>
           <div class="field">
             <label>Alt-текст <span class="req">*</span></label>

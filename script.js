@@ -148,17 +148,55 @@ function chkP(i, el) {
   h.className = 'char-count' + (v > max ? ' err' : v > max * 0.85 ? ' warn' : '');
 }
 
+const S3_BASE = 'https://www.gorgany.com/media/wysiwyg/all_rich/avto_added/';
+const S3_KEY = 's3Folders';
+const S3_MAX = 10;
+
+function s3Batches() {
+  try { return JSON.parse(localStorage.getItem(S3_KEY) || '[]'); }
+  catch (e) { return []; }
+}
+
+function saveS3Folders(batch) {
+  const fresh = [...new Set(batch.items.filter(it => it.status === 'approved').map(it => it.slug).filter(Boolean))];
+  if (!fresh.length) return;
+  const list = s3Batches()
+    .filter(b => b.id !== batch.id)
+    .map(b => ({ ...b, slugs: b.slugs.filter(s => !fresh.includes(s)) }))
+    .filter(b => b.slugs.length);
+  list.unshift({ id: batch.id, date: batch.date, time: batch.time, slugs: fresh });
+  if (list.length > S3_MAX) list.length = S3_MAX;
+  localStorage.setItem(S3_KEY, JSON.stringify(list));
+  renderS3Folders();
+}
+
+function renderS3Folders() {
+  const sel = $('s3Folder');
+  if (!sel) return;
+  const prev = sel.value;
+  const list = s3Batches();
+  sel.disabled = !list.length;
+  if (!list.length) {
+    sel.innerHTML = '<option value="">Спершу оброби фото й завантаж архів у вкладці «Фото»</option>';
+    return;
+  }
+  sel.innerHTML = '<option value="" disabled selected>Обери папку</option>' + list.map(b =>
+    `<optgroup label="Партія ${esc(b.date)} ${esc(b.time)}">` +
+    b.slugs.map(s => `<option value="${esc(s)}">${esc(s)}</option>`).join('') +
+    '</optgroup>'
+  ).join('');
+  if (list.some(b => b.slugs.includes(prev))) sel.value = prev;
+}
+
 function generate() {
   const isGradient = $('gradientToggle').checked;
-  const sharedFolder = g('sharedFolder').trim();
-  const sharedName = g('sharedName').trim();
+  const folder = g('s3Folder');
+  const base = folder ? S3_BASE + folder + '/' + folder : '';
   const posSuffixes = ['_left', '_middle', '_right'];
   let s1 = '<div class="rich-content-three-images">\n';
   for (let i = 1; i <= 3; i++) {
     const suffix = posSuffixes[i - 1] + (isGradient ? '_gradient' : '');
-    const imgUrl = (sharedFolder && sharedName)
-      ? `https://www.gorgany.com/media/wysiwyg/all_rich/avto_added/${sharedFolder}/${sharedName}${suffix}.jpg?format=webp`
-      : '';
+    const imgUrl = base ? `${base}${suffix}.jpg?format=webp` : '';
     s1 += `    <div class="col">\n`;
     s1 += `        <img src="${imgUrl}" alt="${esc(g(`i${i}alt`))}">\n`;
     s1 += `        <div>\n`;
@@ -169,9 +207,7 @@ function generate() {
   }
   s1 += '</div>';
 
-  const s2imgUrl = (sharedFolder && sharedName)
-    ? `https://www.gorgany.com/media/wysiwyg/all_rich/avto_added/${sharedFolder}/${sharedName}_long.jpg?format=webp`
-    : '';
+  const s2imgUrl = base ? `${base}_long.jpg?format=webp` : '';
   const s2 =
     `<div class="rich-content-one-image">\n` +
     `    <div>\n` +
@@ -259,6 +295,7 @@ ${feaTxLines}
   el.textContent = html;
   el.classList.remove('output-empty');
   el.closest('.output-section').scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+  $('statusMsg').textContent = folder ? '' : 'Папку не обрано — у фото порожній src';
   saveGeneration(g('s3h3'), html);
 }
 
@@ -323,4 +360,6 @@ function clearHistory() {
 
 buildImgCols();
 renderHistory();
+renderS3Folders();
+window.addEventListener('storage', e => { if (e.key === S3_KEY) renderS3Folders(); });
 switchTab(localStorage.getItem('activeTab') || 'rich');

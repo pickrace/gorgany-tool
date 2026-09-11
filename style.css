@@ -1522,3 +1522,30 @@ footer {
     transition: none !important;
   }
 }
+
+.slug-select {
+  font-family: var(--mono);
+  font-size: 12px;
+}
+
+.slug-select:invalid,
+.slug-select:disabled {
+  font-family: var(--sans);
+  font-size: 13px;
+  color: var(--text3);
+}
+
+.slug-select:disabled {
+  background: var(--surface2);
+  cursor: not-allowed;
+}
+
+.slug-select optgroup {
+  font-family: var(--sans);
+  color: var(--text2);
+}
+
+.slug-select option {
+  font-family: var(--mono);
+  color: var(--text);
+}

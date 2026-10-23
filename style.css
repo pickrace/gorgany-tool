@@ -1549,3 +1549,288 @@ footer {
   font-family: var(--mono);
   color: var(--text);
 }
+
+.t-fitbox {
+  display: grid;
+  gap: 14px;
+}
+
+.t-off {
+  opacity: .45;
+  pointer-events: none;
+}
+
+.t-fits {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 10px;
+}
+
+.t-fit {
+  background: var(--surface2);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 12px 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  transition: border-color .15s, background .15s, opacity .15s;
+}
+
+.t-fit.main {
+  border-color: var(--accent);
+  background: var(--accent-light);
+}
+
+.t-fit.hidden-fit {
+  opacity: .5;
+}
+
+.t-fit img {
+  width: 64px;
+  height: 64px;
+  object-fit: contain;
+  background: #fff;
+  border-radius: 6px;
+}
+
+.t-fit.main img {
+  width: 76px;
+  height: 76px;
+}
+
+.t-fit-name {
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--text);
+}
+
+.t-fit-opts {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  align-self: stretch;
+  padding-top: 8px;
+  border-top: 1px solid var(--border);
+}
+
+.t-fit-opts .toggle-label {
+  font-size: 11px;
+}
+
+.t-fit-opts input[type=radio] {
+  width: 15px;
+  height: 15px;
+  cursor: pointer;
+  accent-color: var(--accent);
+}
+
+#tTables {
+  display: grid;
+  gap: 16px;
+}
+
+.t-card .section-head {
+  gap: 12px;
+}
+
+.t-name {
+  flex: 1;
+  min-width: 0;
+  font-weight: 600;
+}
+
+.t-dims {
+  display: flex;
+  align-items: flex-end;
+  flex-wrap: wrap;
+  gap: 16px;
+}
+
+.t-dims .field.narrow {
+  width: 90px;
+}
+
+.t-dims .toggle-label {
+  padding-bottom: 9px;
+}
+
+.t-toolbar {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 4px;
+  padding: 6px;
+  background: var(--surface2);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+}
+
+.t-toolbar button {
+  min-width: 30px;
+  height: 30px;
+  padding: 0 9px;
+  background: var(--surface);
+  border: 1px solid var(--border2);
+  border-radius: 6px;
+  font-family: var(--sans);
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--text);
+  cursor: pointer;
+  transition: background .15s, border-color .15s;
+}
+
+.t-toolbar button:hover {
+  background: var(--accent-light);
+  border-color: var(--accent);
+}
+
+.t-toolbar select {
+  width: auto;
+  height: 30px;
+  padding: 0 8px;
+  font-size: 12px;
+}
+
+.t-sep {
+  width: 1px;
+  height: 20px;
+  background: var(--border2);
+  margin: 0 4px;
+}
+
+.t-selinfo {
+  margin-left: auto;
+  padding: 0 6px;
+  font-family: var(--mono);
+  font-size: 11px;
+  color: var(--text3);
+}
+
+.t-grid-wrap {
+  overflow: auto;
+  max-height: 540px;
+  background: #fff;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+}
+
+.t-grid {
+  border-collapse: collapse;
+  font-size: 13px;
+}
+
+.t-grid td {
+  min-width: 70px;
+  padding: 7px 10px;
+  border: 1px solid var(--border);
+  text-align: center;
+  vertical-align: middle;
+  white-space: nowrap;
+  line-height: 1.45;
+  cursor: cell;
+  outline: none;
+}
+
+.t-grid td.t-head,
+.t-grid td.t-pin {
+  background: #fbfaf8;
+}
+
+.t-grid td.t-pin {
+  text-align: left;
+}
+
+.t-grid td.t-hl {
+  background: #efeeea;
+}
+
+.t-grid td.sel {
+  background: var(--accent-light);
+  box-shadow: inset 0 0 0 1px var(--accent);
+}
+
+.t-grid td:focus {
+  box-shadow: inset 0 0 0 2px var(--accent);
+}
+
+.t-grid.t-multi {
+  user-select: none;
+}
+
+.t-grid .t-b {
+  font-weight: 700;
+}
+
+.t-grid .t-i {
+  font-style: italic;
+}
+
+.t-grid .t-u {
+  text-decoration: underline;
+}
+
+.t-grid .t-sm {
+  font-size: .85em;
+}
+
+.t-grid .t-lg {
+  font-size: 1.15em;
+}
+
+.t-grid .t-xl {
+  font-size: 1.3em;
+}
+
+.t-grid td.t-l {
+  text-align: left;
+}
+
+.t-grid td.t-c {
+  text-align: center;
+}
+
+.t-grid td.t-r {
+  text-align: right;
+}
+
+.t-seg {
+  width: 210px;
+  margin-left: auto;
+}
+
+.t-preview-wrap {
+  display: flex;
+  justify-content: center;
+  padding: 12px;
+  background: var(--surface2);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  overflow-x: auto;
+}
+
+.t-preview {
+  width: 100%;
+  min-height: 160px;
+  border: 0;
+  border-radius: 6px;
+  background: #fff;
+  transition: width .2s;
+}
+
+.t-preview.mobile {
+  width: 375px;
+  flex-shrink: 0;
+}
+
+#tablePanel .faq-actions .spacer {
+  flex: 1;
+}
+
+@media (max-width: 720px) {
+  .t-fits {
+    grid-template-columns: 1fr 1fr;
+  }
+}

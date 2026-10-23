@@ -42,7 +42,7 @@ function toggleOutput() {
   $('outputSection').classList.toggle('collapsed');
 }
 
-const PANELS = { rich: 'richPanel', faq: 'faqPanel', photo: 'photoPanel', gradient: 'gradientPanel' };
+const PANELS = { rich: 'richPanel', faq: 'faqPanel', photo: 'photoPanel', gradient: 'gradientPanel', table: 'tablePanel' };
 let currentTab = 'rich';
 
 function switchTab(name) {

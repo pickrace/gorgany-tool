@@ -29,6 +29,7 @@
       <button class="tab-btn" data-tab="faq" onclick="switchTab('faq')">FAQ</button>
       <button class="tab-btn" data-tab="photo" onclick="switchTab('photo')">Фото</button>
       <button class="tab-btn" data-tab="gradient" onclick="switchTab('gradient')">Градієнт</button>
+      <button class="tab-btn" data-tab="table" onclick="switchTab('table')">Таблиці</button>
     </nav>
     <div class="spacer"></div>
     <span class="header-badge">Gorgany CMS</span>
@@ -555,6 +556,106 @@
       </div>
 
     </div>
+
+    <div class="builder" id="tablePanel" style="display:none">
+
+      <div class="section-card" id="tsec1">
+        <div class="section-head" onclick="toggleSection('tsec1')">
+          <div class="section-num">1</div>
+          <span class="section-name">Шапка</span>
+          <span class="section-desc">заголовок · крій · відео-гайд</span>
+          <span class="section-chevron">›</span>
+        </div>
+        <div class="section-body">
+          <div class="field">
+            <label>Заголовок</label>
+            <input type="text" id="tTitle" placeholder="Розмірна таблиця Salewa">
+          </div>
+
+          <div class="sub-title-row">
+            <span class="sub-title">Крій (Fit)</span>
+            <label class="toggle-label">
+              <input type="checkbox" id="tFitOn">
+              <span>Потрібен блок крою</span>
+            </label>
+          </div>
+          <div id="tFitBox" class="t-fitbox">
+            <div class="t-fits" id="tFits"></div>
+            <div class="grid-2-narrow">
+              <div class="field">
+                <label>Опис основного крою <span class="hint">після «Крій <b>Назва</b> —»</span></label>
+                <input type="text" id="tFitDesc">
+              </div>
+              <div class="field">
+                <label>Порада <span class="hint">другий рядок</span></label>
+                <input type="text" id="tFitTip">
+              </div>
+            </div>
+          </div>
+
+          <div class="sub-title-row">
+            <span class="sub-title">Відео-гайд для вимірів</span>
+            <label class="toggle-label">
+              <input type="checkbox" id="tVideoOn">
+              <span>Потрібне відео</span>
+            </label>
+          </div>
+          <div class="field" id="tVideoBox">
+            <label>Яке відео</label>
+            <select id="tVideo"></select>
+          </div>
+        </div>
+      </div>
+
+      <div class="tip"><b>Виділення:</b> клік — одна клітинка · протягни мишкою або Shift+клік — діапазон ·
+        <b>Ctrl+B / I / U</b> — для виділеного фрагмента тексту · кнопки панелі — для цілих клітинок · <b>Delete</b>
+        очищає діапазон · таблицю з Excel чи Google Sheets можна вставити в будь-яку клітинку</div>
+
+      <div id="tTables"></div>
+
+      <div class="faq-actions">
+        <button class="gen-btn gen-btn-sm" onclick="tAddTable()">+ Додати таблицю</button>
+        <button class="copy-btn" onclick="tLoadSample()">Приклад Salewa</button>
+        <div class="spacer"></div>
+        <button class="copy-btn" onclick="tReset()">Почати заново</button>
+      </div>
+
+      <div class="section-card" id="tsecPrev">
+        <div class="section-head static">
+          <span class="section-name">Прев'ю</span>
+          <span class="section-desc">так блок виглядатиме в Magento</span>
+          <div class="seg t-seg">
+            <button type="button" class="seg-btn active" data-pv="desk">Десктоп</button>
+            <button type="button" class="seg-btn" data-pv="mob">Мобільний</button>
+          </div>
+        </div>
+        <div class="section-body">
+          <div class="t-preview-wrap">
+            <iframe id="tPreview" class="t-preview" title="Прев'ю таблиці"></iframe>
+          </div>
+        </div>
+      </div>
+
+      <div class="history-section" id="tHistorySection" style="display:none">
+        <div class="history-head">
+          <span class="history-title">Останні таблиці</span>
+          <button class="copy-btn" onclick="tClearHistory()">Очистити</button>
+        </div>
+        <div id="tHistoryList"></div>
+      </div>
+
+      <div class="output-section" id="tOutputSection">
+        <div class="output-head" onclick="$('tOutputSection').classList.toggle('collapsed')">
+          <span class="output-title">Готовий HTML</span>
+          <div class="spacer"></div>
+          <span class="status-msg" id="tStatusMsg"></span>
+          <button class="gen-btn" id="tCopyBtn" onclick="event.stopPropagation(); tCopy()">Копіювати</button>
+          <span class="output-chevron">›</span>
+        </div>
+        <pre class="output-pre output-empty" id="tOutput">Код з'явиться тут автоматично</pre>
+      </div>
+
+    </div>
   </div>
 
   <footer>
@@ -567,6 +668,7 @@
   <script src="log.js"></script>
   <script src="photo.js"></script>
   <script src="gradient.js"></script>
+  <script src="table.js"></script>
 </body>
 
 </html>

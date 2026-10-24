@@ -1,10 +1,10 @@
 const GT_MEDIA = 'https://www.gorgany.com/media/';
 
 const GT_FITS = [
-  { id: 'regular', name: 'Regular Fit', img: 'wysiwyg/gorgany-ua/tables/fits/regular/jackets_Regular_fit.jpg', text: 'природний, класичний і прямий крій.' },
-  { id: 'sport', name: 'Sport Fit', img: 'wysiwyg/gorgany-ua/tables/fits/sport/Jackets_Sport_fit.jpg', text: 'приталений крій, що щільніше прилягає до тіла.' },
-  { id: 'loose', name: 'Loose Fit', img: 'wysiwyg/gorgany-ua/tables/fits/loose/Jackets_Loose_fit.jpg', text: 'вільний крій із запасом простору для руху та шарів одягу.' },
-  { id: 'oversize', name: 'Oversize', img: 'wysiwyg/gorgany-ua/tables/fits/oversize/Jackets_Oversize_fit.jpg', text: 'підкреслено обʼємний, вільний силует.' }
+  { id: 'regular', name: 'Regular Fit', label: 'Regular fit', img: 'wysiwyg/gorgany-ua/tables/fits/regular/jackets_Regular_fit.jpg', text: 'природний, класичний і прямий крій.' },
+  { id: 'sport', name: 'Sport Fit', label: 'Sport fit', img: 'wysiwyg/gorgany-ua/tables/fits/sport/Jackets_Sport_fit.jpg', text: 'приталений крій, що щільніше прилягає до тіла.' },
+  { id: 'loose', name: 'Loose Fit', label: 'Loose fit', img: 'wysiwyg/gorgany-ua/tables/fits/loose/Jackets_Loose_fit.jpg', text: 'вільний крій із запасом простору для руху та шарів одягу.' },
+  { id: 'oversize', name: 'Oversize', label: 'Oversize', img: 'wysiwyg/gorgany-ua/tables/fits/oversize/Jackets_Oversize_fit.jpg', text: 'підкреслено обʼємний, вільний силует.' }
 ];
 
 // відео
@@ -12,24 +12,24 @@ const GT_VIDEOS = [
   { id: 'PExJiGhOKbA', name: 'Salewa — як зняти мірки' }
 ];
 
-const GT_CSS = `.gt { font-family: "MuseoSans", Helvetica, Arial, sans-serif; color: #060606; text-align: center; max-width: 960px; margin: 0 auto; }
-.gt-title { font-size: 26px; font-weight: 700; text-decoration: underline; margin: 0 0 16px; }
-.gt-subtitle { font-size: 20px; font-weight: 700; margin: 32px 0 12px; }
-.gt-fit { width: 75%; margin: 0 auto 24px; padding: 12px 0; border-top: 2px solid #000; border-bottom: 2px solid #000; }
-.gt-fit p { font-size: 20px; margin: 6px 0; }
-.gt-fit-list { list-style: none; display: flex; flex-wrap: wrap; justify-content: center; align-items: flex-end; gap: 24px; margin: 12px 0 0; padding: 0; }
-.gt-fit-list li { margin: 0; font-size: 16px; }
-.gt-fit-list img { display: block; width: 150px; height: 150px; margin: 0 auto 4px; }
-.gt-fit-list .is-active { font-weight: 700; }
-.gt-fit-list .is-active img { width: 180px; height: 180px; }
-.gt-video { max-width: 700px; aspect-ratio: 7 / 5; margin: 0 auto 8px; }
-.gt-video iframe { display: block; width: 100%; height: 100%; border: 0; }
-.gt-scroll { overflow-x: auto; -webkit-overflow-scrolling: touch; max-width: 100%; margin: 0 auto; }
-.gt-table { border-collapse: collapse; margin: 0 auto; font-size: 16px; }
-.gt-table th, .gt-table td { padding: 15px 14px; text-align: center; vertical-align: middle; white-space: nowrap; font-weight: 400; background: #fff; border: 0; border-bottom: 1px solid #e6e6e6; }
-.gt-lines th, .gt-lines td { border-right: 1px solid #f0f0f0; }
-.gt-table .gt-pin { position: sticky; left: 0; z-index: 1; text-align: left; padding-right: 20px; box-shadow: 1px 0 0 #e6e6e6; }
-.gt-table .gt-b { font-weight: 700; }
+const GT_CSS = `.gt * { margin: 0; padding: 0; }
+.gt-title, .gt-sub { display: flex; justify-content: center; text-align: center; font-size: 26px; font-weight: bold; text-decoration: underline; margin-bottom: 5px; }
+.gt-sub { flex-wrap: wrap; }
+.gt-sub::before { content: "\\00a0"; flex: 0 0 100%; margin-bottom: 5px; text-align: center; }
+.gt-sub::after { content: "\\00a0"; flex: 0 0 0; width: 0; overflow: hidden; }
+.gt-sub span { font-size: 18px; }
+.gt-line { width: 75%; height: 2px; border: 0; border-top: 1px solid #000; margin: 8px auto; }
+.gt-text { font-size: 20px; margin: 6px 0; text-align: center; }
+.gt-fits { display: flex; justify-content: center; gap: 24px; }
+.gt-fits > div { text-align: center; }
+.gt-video { display: table; margin-left: auto; margin-right: auto; border: 0; }
+.gt::after { content: ""; display: block; height: 66px; }
+.gt-scroll { overflow-x: auto; -webkit-overflow-scrolling: touch; }
+.gt-table { border-collapse: separate; border-spacing: 0; margin: 0 auto; font-size: 16px; }
+.gt-table td { padding: 15px 14px; text-align: center; white-space: nowrap; border-bottom: 1px solid #e6e6e6; }
+.gt-table .gt-pin { position: sticky; left: 0; z-index: 1; background: #fff; }
+.gt-lines td { border-right: 1px solid #f0f0f0; }
+.gt-table .gt-b { font-weight: bold; }
 .gt-table .gt-i { font-style: italic; }
 .gt-table .gt-u { text-decoration: underline; }
 .gt-table .gt-sm { font-size: .85em; }
@@ -39,20 +39,22 @@ const GT_CSS = `.gt { font-family: "MuseoSans", Helvetica, Arial, sans-serif; co
 .gt-table .gt-c { text-align: center; }
 .gt-table .gt-r { text-align: right; }
 .gt-table .gt-hl { background: #f5f5f5; }
-.gt-note { font-size: 14px; color: #666; margin: 10px 0 0; }
+.gt-note { font-size: 16px; margin-top: 10px; text-align: center; }
 @media (max-width: 767px) {
-  .gt-title { font-size: 18px; }
-  .gt-subtitle { font-size: 15px; margin-top: 24px; }
-  .gt-fit { width: 100%; }
-  .gt-fit p { font-size: 14px; }
-  .gt-fit-list { gap: 12px; }
-  .gt-fit-list li { font-size: 12px; }
-  .gt-fit-list img { width: 80px; height: 80px; }
-  .gt-fit-list .is-active img { width: 96px; height: 96px; }
   .gt-table { font-size: 12px; }
-  .gt-table th, .gt-table td { padding: 12px 8px; }
-  .gt-table .gt-pin { white-space: normal; min-width: 90px; padding-right: 12px; }
+  .gt-table td { padding: 12px 8px; }
   .gt-note { font-size: 12px; }
+  .gt::after { height: 55px; }
+}
+@media (min-width: 544px) {
+  .gt-table .gt-pin { padding-right: 15px; }
+}
+@media (min-width: 768px) {
+  .gt-table .gt-pin { padding-right: 20px; }
+}
+@media (max-width: 400px) {
+  .gt-title, .gt-sub { text-align: left; }
+  .gt-table .gt-pin { text-align: left; }
 }`;
 
 const T_DRAFT = 'tableDraft';
@@ -69,7 +71,7 @@ function tFmtFrom(src) {
 }
 
 function tNewTable(rows = 4, cols = 5) {
-  const tb = { title: '', head: true, pin: true, lines: false, note: '', merges: [], cells: [] };
+  const tb = { title: '', pin: true, lines: false, note: '', merges: [], cells: [] };
   for (let r = 0; r < rows; r++) tb.cells.push(Array.from({ length: cols }, () => tCell()));
   tb.cells[0].forEach(c => { c.b = true; });
   tb.cells.forEach(row => { row[0].b = true; });
@@ -244,7 +246,6 @@ function tGridHtml(tb, ti) {
     const k = cov[r][c];
     if (k === 'x') return '';
     const cls = ['t-cell', ...tFmtCls(cell, 't-')];
-    if (tb.head && r === 0) cls.push('t-head');
     if (tb.pin && c === 0) cls.push('t-pin');
     if (tInSel(ti, r, c)) cls.push('sel');
     return `<td class="${cls.join(' ')}" data-r="${r}" data-c="${c}"${tSpanAttr(k)} contenteditable="true">${cell.t}</td>`;
@@ -275,7 +276,6 @@ function tCardHtml(tb, ti) {
           <label>Колонок</label>
           <input type="number" min="1" max="30" data-f="cols" value="${tCols(tb)}">
         </div>
-        <label class="toggle-label"><input type="checkbox" data-f="head" ${tb.head ? 'checked' : ''}><span>Перший рядок — шапка</span></label>
         <label class="toggle-label"><input type="checkbox" data-f="pin" ${tb.pin ? 'checked' : ''}><span>Закріпити першу колонку при скролі</span></label>
         <label class="toggle-label"><input type="checkbox" data-f="lines" ${tb.lines ? 'checked' : ''}><span>Вертикальні лінії</span></label>
       </div>
@@ -539,63 +539,53 @@ function tPaste(e, td) {
   tStatus(`Вставлено ${rows.length}×${w}`);
 }
 
-function tCellHtml(tb, r, c, k, inHead) {
+function tCellHtml(tb, r, c, k) {
   const cell = tb.cells[r][c];
-  const pin = tb.pin && c === 0;
-  const tag = inHead || pin ? 'th' : 'td';
-  const cls = [...(pin ? ['gt-pin'] : []), ...tFmtCls(cell, 'gt-')];
-  const attr = (cls.length ? ` class="${cls.join(' ')}"` : '') + tSpanAttr(k);
-  return `<${tag}${attr}>${cell.t}</${tag}>`;
-}
-
-function tHeadOk(tb) {
-  return tb.head && tRows(tb) > 1 && !tb.merges.some(m => m.r === 0 && m.rs > 1);
+  const cls = [...(tb.pin && c === 0 ? ['gt-pin'] : []), ...tFmtCls(cell, 'gt-')];
+  return `<td${cls.length ? ` class="${cls.join(' ')}"` : ''}${tSpanAttr(k)}>${cell.t}</td>`;
 }
 
 function tTableLines(tb) {
   const L = [];
   const cov = tCover(tb);
-  const head = tHeadOk(tb);
-  const row = (r, inHead) => '        <tr>' + tb.cells[r]
-    .map((_, c) => (cov[r][c] === 'x' ? '' : tCellHtml(tb, r, c, cov[r][c], inHead)))
-    .join('') + '</tr>';
-  if (tb.title.trim()) L.push(`  <h3 class="gt-subtitle">${esc(tb.title.trim())}</h3>`);
+  if (tb.title.trim()) L.push(`  <div class="gt-sub"><span>${esc(tb.title.trim())}</span></div>`);
   L.push('  <div class="gt-scroll">');
   L.push(`    <table class="gt-table${tb.lines ? ' gt-lines' : ''}">`);
-  if (head) L.push('      <thead>', row(0, true), '      </thead>');
   L.push('      <tbody>');
-  for (let r = head ? 1 : 0; r < tRows(tb); r++) L.push(row(r, false));
+  tb.cells.forEach((row, r) => L.push('        <tr>' + row
+    .map((_, c) => (cov[r][c] === 'x' ? '' : tCellHtml(tb, r, c, cov[r][c])))
+    .join('') + '</tr>'));
   L.push('      </tbody>', '    </table>', '  </div>');
-  if (tb.note.trim()) L.push(`  <p class="gt-note">${esc(tb.note.trim())}</p>`);
+  if (tb.note.trim()) L.push(`  <div class="gt-note">${esc(tb.note.trim())}</div>`);
   return L;
 }
 
 function tBuild(s = gt) {
   const L = ['<style>', GT_CSS, '</style>', '<div class="gt">'];
-  if (s.title.trim()) L.push(`  <h2 class="gt-title">${esc(s.title.trim())}</h2>`);
+  if (s.title.trim()) L.push(`  <div class="gt-title">${esc(s.title.trim())}</div>`);
   if (s.fitOn) {
     const main = GT_FITS.find(f => f.id === s.fitMain);
     const shown = GT_FITS.filter(f => s.fits.includes(f.id));
-    L.push('  <div class="gt-fit">');
+    L.push('  <div class="gt-fit">', '    <hr class="gt-line">');
     if (main) {
       const desc = s.fitDesc.trim();
-      L.push(`    <p>Крій <strong>${main.name}</strong>${desc ? ' — ' + esc(desc) : ''}</p>`);
+      L.push(`    <div class="gt-text">Крій <strong>${main.label}</strong>${desc ? ' - ' + esc(desc) : ''}</div>`);
     }
-    if (s.fitTip.trim()) L.push(`    <p>${esc(s.fitTip.trim())}</p>`);
+    if (s.fitTip.trim()) L.push(`    <div class="gt-text">${esc(s.fitTip.trim())}</div>`);
     if (shown.length) {
-      L.push('    <ul class="gt-fit-list">');
-      shown.forEach(f => L.push(
-        `      <li${f.id === s.fitMain ? ' class="is-active"' : ''}><img src="{{media url="${f.img}"}}" alt="${f.name}"><span>${f.name}</span></li>`
-      ));
-      L.push('    </ul>');
+      L.push('    <div class="gt-text gt-fits">');
+      shown.forEach(f => {
+        const big = f.id === s.fitMain;
+        const px = big ? 180 : 150;
+        L.push(`      <div><img src="{{media url="${f.img}"}}" alt="${f.name}" width="${px}" height="${px}"><div>${big ? `<strong>${f.name}</strong>` : f.name}</div></div>`);
+      });
+      L.push('    </div>');
     }
-    L.push('  </div>');
+    L.push('    <hr class="gt-line">', '  </div>');
   }
   const video = s.videoOn && GT_VIDEOS.find(v => v.id === s.video);
   if (video) {
-    L.push('  <div class="gt-video">');
-    L.push(`    <iframe src="https://www.youtube.com/embed/${video.id}" title="${esc(video.name)}" width="700" height="500" loading="lazy" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>`);
-    L.push('  </div>');
+    L.push(`  <iframe class="gt-video" src="https://www.youtube.com/embed/${video.id}" title="${esc(video.name)}" width="700" height="500" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen="allowfullscreen"></iframe>`);
   }
   s.tables.forEach(tb => L.push(...tTableLines(tb)));
   L.push('</div>');
@@ -603,8 +593,6 @@ function tBuild(s = gt) {
 }
 
 function tWarn() {
-  const bad = gt.tables.findIndex(tb => tb.head && tRows(tb) > 1 && !tHeadOk(tb));
-  if (bad >= 0) return `Таблиця ${bad + 2}: обʼєднання з першого рядка вниз — шапку виведено як звичайний рядок`;
   if (gt.fitOn && !gt.fits.length) return 'Крій увімкнено, але жодного фото не вибрано';
   return '';
 }
@@ -613,7 +601,9 @@ function tPreviewDoc(html) {
   const body = html.replace(/\{\{media url="([^"]+)"\}\}/g, (m, p) => GT_MEDIA + p);
   return '<!DOCTYPE html><html lang="uk"><head><meta charset="utf-8">' +
     '<meta name="viewport" content="width=device-width, initial-scale=1">' +
-    '<style>body{margin:16px;background:#fff}</style></head><body>' + body + '</body></html>';
+    '<style>*{box-sizing:border-box}body{margin:0;padding:16px 15px;background:#fff;color:#333;' +
+    'font:14px/1.42857 "MuseoSans",Helvetica,Arial,sans-serif}img{max-width:100%;height:auto;border:0}</style>' +
+    '</head><body>' + body + '</body></html>';
 }
 
 function tFitPreviewHeight() {
@@ -874,7 +864,7 @@ function tInitEvents() {
       tClampSel();
       tRedraw(ti);
       tChanged();
-    } else if (f === 'head' || f === 'pin' || f === 'lines') {
+    } else if (f === 'pin' || f === 'lines') {
       tb[f] = el.checked;
       tRedraw(ti);
       tChanged();
